@@ -1,8 +1,8 @@
-package edu.dyds.movies.presentation
+package edu.dyds.movies
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import edu.dyds.movies.presentation.utils.App
+import edu.dyds.movies.presentation.App
 
 fun main() = application {
     Window(

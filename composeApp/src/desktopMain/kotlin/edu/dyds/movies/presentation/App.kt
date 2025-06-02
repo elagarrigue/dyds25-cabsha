@@ -1,9 +1,8 @@
 @file:Suppress("FunctionName")
 
-package edu.dyds.movies.presentation.utils
+package edu.dyds.movies.presentation
 
 import androidx.compose.runtime.Composable
-import edu.dyds.movies.Navigation
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
