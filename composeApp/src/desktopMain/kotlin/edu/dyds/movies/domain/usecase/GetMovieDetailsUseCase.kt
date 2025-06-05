@@ -5,6 +5,6 @@ import edu.dyds.movies.domain.repository.MoviesRepository
 
 class GetMovieDetailsUseCase(private val repository: MoviesRepository) {
     suspend operator fun invoke(movieId: Int): Movie {
-        return repository.getMovieDetails(movieId)
+        return repository.getMovieDetails(movieId).toDomainMovie()
     }
 }

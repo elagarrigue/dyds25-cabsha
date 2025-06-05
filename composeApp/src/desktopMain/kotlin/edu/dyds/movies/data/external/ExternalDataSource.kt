@@ -1,6 +1,5 @@
 package edu.dyds.movies.data.external
 
-import edu.dyds.movies.domain.entity.Movie
 import edu.dyds.movies.domain.entity.RemoteMovie
 
 interface ExternalDataSource {

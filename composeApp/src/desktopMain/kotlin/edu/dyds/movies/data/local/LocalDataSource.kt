@@ -1,8 +1,8 @@
 package edu.dyds.movies.data.local
 
-import edu.dyds.movies.domain.entity.Movie
+import edu.dyds.movies.domain.entity.RemoteMovie
 
 interface LocalDataSource {
-    fun getMovies(): List<Movie>
-    fun setMovies(cache: List<Movie>)
+    fun getMovies(): List<RemoteMovie>
+    fun setMovies(cache: List<RemoteMovie>)
 }
