@@ -9,9 +9,9 @@ class LocalData: LocalDataSource {
         return moviesCache
     }
 
-    override fun setMovies(movies: List<RemoteMovie>){
+    override fun setMovies(cache: List<RemoteMovie>){
         moviesCache.clear()
-        moviesCache.addAll(movies)
+        moviesCache.addAll(cache)
     }
 
 }

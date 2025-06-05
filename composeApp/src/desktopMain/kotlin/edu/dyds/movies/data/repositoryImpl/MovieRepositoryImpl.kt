@@ -10,22 +10,23 @@ class MovieRepositoryImpl(
     private val localData: LocalDataSource, private val externalData: ExternalDataSource
 ): MoviesRepository {
     override suspend fun getPopularMovies(): List<Movie> {
-        val localCache = localData.getMovies()
+        val cached = localData.getMovies()
 
-        val movies =
-            localCache.ifEmpty {
-                try {
-                    val externalMovies = externalData.getPopularMovies()
-                    localData.setMovies(externalMovies)
-
-                    externalMovies
-                } catch (e: Exception) {
-                    emptyList()
-                }
+        val movies = cached.ifEmpty {
+            try {
+                val remote = externalData.getPopularMovies().results
+                localData.setMovies(remote)
+                remote
+            } catch (e: Exception) {
+                emptyList()
             }
-
+        }
         return movies.map { it.toDomainMovie() }
     }
 
-    override suspend fun getMovieDetails(id: Int): RemoteMovie = externalData.getMovieDetails(id)
+
+
+    override suspend fun getMovieDetails(id: Int): RemoteMovie {
+        return externalData.getMovieDetails(id)
+    }
 }

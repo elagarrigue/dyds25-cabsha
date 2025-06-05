@@ -6,6 +6,7 @@ import edu.dyds.movies.domain.repository.MoviesRepository
 private const val MIN_VOTE_AVERAGE = 6.0
 
 class GetPopularMoviesUseCase(private val repository: MoviesRepository) {
+
     suspend operator fun invoke(): List<QualifiedMovie> {
         return repository.getPopularMovies()
             .sortedByDescending { it.voteAverage }
