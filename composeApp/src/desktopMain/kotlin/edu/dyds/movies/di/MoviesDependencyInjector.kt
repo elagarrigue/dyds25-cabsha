@@ -4,15 +4,17 @@ import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import edu.dyds.movies.data.external.ExternalData
 import edu.dyds.movies.data.external.ExternalDataSource
-import edu.dyds.movies.data.local.LocalData
+import edu.dyds.movies.data.local.LocalDataCache
 
 import edu.dyds.movies.presentation.detail.DetailScreenViewModel
 import edu.dyds.movies.presentation.home.HomeScreenViewModel
 import edu.dyds.movies.data.local.LocalDataSource
-import edu.dyds.movies.data.repositoryImpl.MovieRepositoryImpl
+import edu.dyds.movies.data.repository.MovieRepositoryImpl
 import edu.dyds.movies.domain.repository.MoviesRepository
 import edu.dyds.movies.domain.usecase.GetMovieDetailsUseCase
 import edu.dyds.movies.domain.usecase.GetPopularMoviesUseCase
+import edu.dyds.movies.domain.usecase.IMovieDetailsUseCase
+import edu.dyds.movies.domain.usecase.IPopularMoviesUseCase
 
 import io.ktor.client.*
 import io.ktor.client.plugins.*
@@ -43,11 +45,11 @@ object MoviesDependencyInjector {
                 requestTimeoutMillis = 5000
             }
         }
-    private val localData: LocalDataSource = LocalData()
+    private val localData: LocalDataSource = LocalDataCache()
     private val externalData: ExternalDataSource = ExternalData(tmdbHttpClient)
     private val repository: MoviesRepository = MovieRepositoryImpl(localData, externalData)
-    private val homeUseCase: GetPopularMoviesUseCase = GetPopularMoviesUseCase(repository)
-    private val detailsUseCase: GetMovieDetailsUseCase = GetMovieDetailsUseCase(repository)
+    private val homeUseCase: IPopularMoviesUseCase = GetPopularMoviesUseCase(repository)
+    private val detailsUseCase: IMovieDetailsUseCase = GetMovieDetailsUseCase(repository)
 
     @Composable
     fun getHomeScreenViewModel(): HomeScreenViewModel {

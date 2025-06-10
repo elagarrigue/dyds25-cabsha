@@ -4,14 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 
 import edu.dyds.movies.domain.entity.Movie
-import edu.dyds.movies.domain.usecase.GetMovieDetailsUseCase
+import edu.dyds.movies.domain.usecase.IMovieDetailsUseCase
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class DetailScreenViewModel (
-    private val detailsUseCase: GetMovieDetailsUseCase
+    private val detailsUseCase: IMovieDetailsUseCase
 ) : ViewModel() {
         private val movieDetailStateMutableStateFlow = MutableStateFlow(MovieDetailUiState())
 
