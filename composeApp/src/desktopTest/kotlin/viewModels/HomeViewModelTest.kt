@@ -21,9 +21,9 @@ import kotlin.test.assertEquals
 @OptIn(ExperimentalCoroutinesApi::class)
 class HomeViewModelTest {
 
-    val testDispatcher = UnconfinedTestDispatcher()
-    val testScope = CoroutineScope(testDispatcher)
-    lateinit var getPopularMoviesUseCase: IPopularMoviesUseCase
+    private val testDispatcher = UnconfinedTestDispatcher()
+    private val testScope = CoroutineScope(testDispatcher)
+    private lateinit var getPopularMoviesUseCase: IPopularMoviesUseCase
 
     @BeforeTest
     fun setUp() {
@@ -37,7 +37,7 @@ class HomeViewModelTest {
     }
 
     @Test
-    fun `get popular movies should emit loading and data states`() = runTest {
+    fun `getPopularMovies debe emitir el estado de carga y mostrar datos`() = runTest {
         // Arrange
         val homeViewModel = HomeScreenViewModel(getPopularMoviesUseCase)
 

@@ -20,9 +20,9 @@ import kotlin.test.assertEquals
 @OptIn(ExperimentalCoroutinesApi::class)
 class DetailViewModelTest {
 
-    val testDispatcher = UnconfinedTestDispatcher()
-    val testScope = CoroutineScope(testDispatcher)
-    lateinit var getMovieDetailsUseCase: IMovieDetailsUseCase
+    private val testDispatcher = UnconfinedTestDispatcher()
+    private val testScope = CoroutineScope(testDispatcher)
+    private lateinit var getMovieDetailsUseCase: IMovieDetailsUseCase
 
     @BeforeTest
     fun setUp() {
@@ -36,7 +36,7 @@ class DetailViewModelTest {
     }
 
     @Test
-    fun `get movie details should emit loading and data states`() = runTest {
+    fun `getMovieDetails debe emitir el estado de carga y mostrar datos`() = runTest {
         // Arrange
         val detailViewModel = DetailScreenViewModel(getMovieDetailsUseCase)
 
