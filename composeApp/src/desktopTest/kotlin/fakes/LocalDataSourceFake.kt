@@ -1,4 +1,4 @@
-package fake
+package fakes
 
 import edu.dyds.movies.data.local.LocalDataSource
 import edu.dyds.movies.domain.entity.Movie

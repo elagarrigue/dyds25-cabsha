@@ -1,17 +1,24 @@
-import kotlin.test.assertEquals
-import kotlin.test.assertTrue
+package localData
+
 import edu.dyds.movies.data.local.LocalDataCache
 import edu.dyds.movies.data.local.LocalDataSource
 import edu.dyds.movies.domain.entity.Movie
+import org.junit.Before
 import org.junit.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class LocalDataCacheTest {
 
+    private lateinit var localCacheMovies: LocalDataSource
+
+    @Before
+    fun setup() {
+        localCacheMovies = LocalDataCache()
+    }
+
     @Test
     fun `getMovies deberia retornar la lista vacia cuando inicia`() {
-        // Arrange
-        val localCacheMovies: LocalDataSource = LocalDataCache()
-
         // Act
         val result = localCacheMovies.getMovies()
 
@@ -22,7 +29,6 @@ class LocalDataCacheTest {
     @Test
     fun `setMovies deberia almacenar y retornar los valores correctamente`() {
         // Arrange
-        val localCacheMovies: LocalDataSource = LocalDataCache()
         val movies = listOf(
             Movie(1, "Película A", "Overview A", "2023-01-01", "posterA", null, "Titulo Original A", "en", 10.0, 8.5),
             Movie(2, "Película B", "Overview B", "2023-01-01", "posterB", null, "Titulo Original B", "en", 10.0, 7.0)
@@ -39,7 +45,6 @@ class LocalDataCacheTest {
     @Test
     fun `setMovies deberia reemplazar completamente la lista existente`() {
         // Arrange
-        val localCacheMovies: LocalDataSource = LocalDataCache()
         val initialListMovies = listOf(
             Movie(1, "Película Inicial", "Overview", "2023-01-01", "poster", null, "Original", "en", 10.0, 8.5)
         )
@@ -60,7 +65,6 @@ class LocalDataCacheTest {
     @Test
     fun `setMovies deberia vaciar la lista cuando recibe una lista vacia`() {
         // Arrange
-        val localCacheMovies: LocalDataSource = LocalDataCache()
         val initialListMovies = listOf(
             Movie(1, "Película Inicial", "Overview", "2023-01-01", "poster", null, "Original", "en", 10.0, 8.5)
         )
