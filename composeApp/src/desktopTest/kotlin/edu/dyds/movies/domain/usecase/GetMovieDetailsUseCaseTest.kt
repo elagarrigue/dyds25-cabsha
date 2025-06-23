@@ -1,12 +1,11 @@
-package useCases
+package edu.dyds.movies.domain.usecase
 
-import edu.dyds.movies.domain.usecase.GetMovieDetailsUseCase
 import fakes.MoviesRepositoryFake
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
 
-class MovieDetailsUseCaseTest {
+class GetMovieDetailsUseCaseTest {
 
     @Test
     fun `getMovieDetails deberia retornar la pelicula correcta`() = runTest {

@@ -1,7 +1,5 @@
-package localData
+package edu.dyds.movies.data.local
 
-import edu.dyds.movies.data.local.LocalDataCache
-import edu.dyds.movies.data.local.LocalDataSource
 import edu.dyds.movies.domain.entity.Movie
 import org.junit.Before
 import org.junit.Test

@@ -1,8 +1,7 @@
-package viewModels
+package edu.dyds.movies.presentation.detail
 
 import edu.dyds.movies.domain.entity.Movie
 import edu.dyds.movies.domain.usecase.IMovieDetailsUseCase
-import edu.dyds.movies.presentation.detail.DetailScreenViewModel
 import fakes.MovieDetailsUseCaseFake
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +17,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class DetailViewModelTest {
+class DetailScreenViewModelTest {
 
     private val testDispatcher = UnconfinedTestDispatcher()
     private val testScope = CoroutineScope(testDispatcher)

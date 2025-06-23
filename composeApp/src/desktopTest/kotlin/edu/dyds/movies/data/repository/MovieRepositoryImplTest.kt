@@ -1,6 +1,5 @@
-package repository
+package edu.dyds.movies.data.repository
 
-import edu.dyds.movies.data.repository.MovieRepositoryImpl
 import edu.dyds.movies.domain.entity.Movie
 import fakes.ExternalDataSourceFake
 import fakes.LocalDataSourceFake

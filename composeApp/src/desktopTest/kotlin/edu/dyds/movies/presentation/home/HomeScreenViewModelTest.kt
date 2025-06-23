@@ -1,9 +1,8 @@
-package viewModels
+package edu.dyds.movies.presentation.home
 
 import edu.dyds.movies.domain.entity.Movie
 import edu.dyds.movies.domain.entity.QualifiedMovie
 import edu.dyds.movies.domain.usecase.IPopularMoviesUseCase
-import edu.dyds.movies.presentation.home.HomeScreenViewModel
 import fakes.PopularMoviesUseCaseFake
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +18,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class HomeViewModelTest {
+class HomeScreenViewModelTest {
 
     private val testDispatcher = UnconfinedTestDispatcher()
     private val testScope = CoroutineScope(testDispatcher)
