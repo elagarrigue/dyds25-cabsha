@@ -1,8 +1,8 @@
 package edu.dyds.movies.data.local
 
 import edu.dyds.movies.domain.entity.Movie
-import org.junit.Before
 import org.junit.Test
+import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
@@ -10,7 +10,7 @@ class LocalDataCacheTest {
 
     private lateinit var localCacheMovies: LocalDataSource
 
-    @Before
+    @BeforeTest
     fun setup() {
         localCacheMovies = LocalDataCache()
     }

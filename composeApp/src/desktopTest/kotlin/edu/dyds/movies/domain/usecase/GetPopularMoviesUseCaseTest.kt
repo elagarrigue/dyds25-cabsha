@@ -41,7 +41,7 @@ class GetPopularMoviesUseCaseTest {
         // Arrange
         val fakeRepository = object : MoviesRepository {
             override suspend fun getPopularMovies(): List<Movie> = emptyList()
-            override suspend fun getMovieDetails(id: Int): Movie =
+            override suspend fun getMovieDetails(id: Int): Movie? =
                 Movie(id, "None", "None", "2022-01-01", "poster", null, "Original", "en", 0.0, 0.0)
         }
 

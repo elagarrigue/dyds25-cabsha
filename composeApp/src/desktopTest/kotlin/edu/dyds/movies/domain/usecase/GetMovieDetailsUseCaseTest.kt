@@ -17,8 +17,8 @@ class GetMovieDetailsUseCaseTest {
         val result = useCase.invoke(42)
 
         // Assert
-        assertEquals(42, result.id)
-        assertEquals("Titulo 42", result.title)
+        assertEquals(42, result?.id)
+        assertEquals("Titulo 42", result?.title)
         assertEquals(42, fakeRepository.getMovieDetailsCalledWith)
     }
 }

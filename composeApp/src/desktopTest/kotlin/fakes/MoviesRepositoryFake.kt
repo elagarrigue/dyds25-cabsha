@@ -17,7 +17,7 @@ class MoviesRepositoryFake: MoviesRepository {
         )
     }
 
-    override suspend fun getMovieDetails(id: Int): Movie {
+    override suspend fun getMovieDetails(id: Int): Movie? {
         getMovieDetailsCalledWith = id
         return Movie(id, "Titulo $id", "Detail", "2022-01-01", "poster", null, "Original", "en", 5.0, 6.9)
     }

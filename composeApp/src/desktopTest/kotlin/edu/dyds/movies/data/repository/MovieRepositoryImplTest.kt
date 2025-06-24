@@ -6,7 +6,6 @@ import fakes.LocalDataSourceFake
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
@@ -75,23 +74,23 @@ class MovieRepositoryImplTest {
         val result = repository.getMovieDetails(5)
 
         // Assert
-        assertEquals(5, result.id)
-        assertEquals("Detalle 5", result.title)
+        assertEquals(5, result?.id)
+        assertEquals("Detalle 5", result?.title)
         assertEquals(5, external.getMovieDetailsCalledWith)
     }
 
     @Test
-    fun `deberia lanzar excepcion si ocurre error en getMovieDetails`() = runTest {
+    fun `deberia devolver null si ocurre algun error en getMovieDetails`() = runTest {
         // Arrange
         val repository = MovieRepositoryImpl(
             localData = LocalDataSourceFake(),
             externalData = ExternalDataSourceFake(shouldThrow = true)
         )
 
-        // Act & Assert
-        val exception = assertFailsWith<RuntimeException> {
-            repository.getMovieDetails(7)
-        }
-        assertEquals("Fallo detalle", exception.message)
+        // Act
+        val result = repository.getMovieDetails(7)
+
+        //Assert
+        assertEquals(result, null)
     }
 }
