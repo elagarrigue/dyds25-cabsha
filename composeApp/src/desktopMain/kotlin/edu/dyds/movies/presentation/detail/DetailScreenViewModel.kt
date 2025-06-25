@@ -2,6 +2,7 @@ package edu.dyds.movies.presentation.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import edu.dyds.movies.domain.entity.EmptyMovie
 
 import edu.dyds.movies.domain.entity.Movie
 import edu.dyds.movies.domain.usecase.IMovieDetailsUseCase
@@ -30,6 +31,6 @@ class DetailScreenViewModel (
 
         data class MovieDetailUiState(
             val isLoading: Boolean = true,
-            val movie: Movie? = null,
+            val movie: Movie = EmptyMovie,
         )
 }

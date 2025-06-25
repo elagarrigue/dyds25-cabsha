@@ -1,6 +1,7 @@
 package edu.dyds.movies.domain.usecase
 
 import edu.dyds.movies.domain.entity.Movie
+import edu.dyds.movies.domain.entity.MovieItem
 import edu.dyds.movies.domain.repository.MoviesRepository
 import fakes.MoviesRepositoryFake
 import kotlinx.coroutines.test.runTest
@@ -40,8 +41,8 @@ class GetPopularMoviesUseCaseTest {
     fun `getPopularMovies deberia retornar una lista vacia cuando el repositorio no tiene valores`() = runTest {
         // Arrange
         val fakeRepository = object : MoviesRepository {
-            override suspend fun getPopularMovies(): List<Movie> = emptyList()
-            override suspend fun getMovieDetails(id: Int): Movie? =
+            override suspend fun getPopularMovies(): List<MovieItem> = emptyList()
+            override suspend fun getMovieDetails(id: Int): Movie =
                 Movie(id, "None", "None", "2022-01-01", "poster", null, "Original", "en", 0.0, 0.0)
         }
 

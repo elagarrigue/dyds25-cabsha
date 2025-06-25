@@ -24,10 +24,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import dydsproject.composeapp.generated.resources.*
-import edu.dyds.movies.presentation.detail.DetailScreenViewModel
+import edu.dyds.movies.domain.entity.EmptyMovie
 import edu.dyds.movies.presentation.utils.LoadingIndicator
 import edu.dyds.movies.presentation.utils.NoResults
-import edu.dyds.movies.domain.entity.Movie
+import edu.dyds.movies.domain.entity.MovieItem
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,7 +47,10 @@ fun DetailScreen(viewModel: DetailScreenViewModel, id: Int, onBack: () -> Unit) 
             Scaffold(
                 topBar = {
                     DetailTopBar(
-                        title = state.movie?.title ?: "",
+                        title = when (state.movie) {
+                            is MovieItem -> (state.movie as MovieItem).title
+                            is EmptyMovie -> ""
+                        },
                         onBack = onBack,
                         scrollBehavior = scrollBehavior
                     )
@@ -57,7 +60,7 @@ fun DetailScreen(viewModel: DetailScreenViewModel, id: Int, onBack: () -> Unit) 
                 LoadingIndicator(enabled = state.isLoading, modifier = Modifier.padding(padding))
 
                 when {
-                    state.movie != null -> MovieDetail(movie = state.movie!!, modifier = Modifier.padding(padding))
+                    state.movie != EmptyMovie -> MovieDetail(movie = state.movie as MovieItem, modifier = Modifier.padding(padding))
                     state.isLoading.not() -> NoResults { viewModel.getMovieDetail(id) }
                 }
             }
@@ -67,7 +70,7 @@ fun DetailScreen(viewModel: DetailScreenViewModel, id: Int, onBack: () -> Unit) 
 
 @Composable
 private fun MovieDetail(
-    movie: Movie,
+    movie: MovieItem,
     modifier: Modifier = Modifier
 ) {
     Column(
