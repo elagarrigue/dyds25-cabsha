@@ -2,7 +2,7 @@ package edu.dyds.movies.domain.usecase
 
 import fakes.MoviesRepositoryFake
 import kotlinx.coroutines.test.runTest
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class GetMovieDetailsUseCaseTest {

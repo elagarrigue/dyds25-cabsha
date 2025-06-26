@@ -4,7 +4,7 @@ import edu.dyds.movies.domain.entity.Movie
 import fakes.ExternalDataSourceFake
 import fakes.LocalDataSourceFake
 import kotlinx.coroutines.test.runTest
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
