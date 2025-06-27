@@ -1,6 +1,6 @@
 package edu.dyds.movies.data.local
 
-import edu.dyds.movies.domain.entity.Movie
+import edu.dyds.movies.domain.entity.MovieItem
 import org.junit.Test
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
@@ -28,8 +28,8 @@ class LocalDataCacheTest {
     fun `setMovies deberia almacenar y retornar los valores correctamente`() {
         // Arrange
         val movies = listOf(
-            Movie(1, "Película A", "Overview A", "2023-01-01", "posterA", null, "Titulo Original A", "en", 10.0, 8.5),
-            Movie(2, "Película B", "Overview B", "2023-01-01", "posterB", null, "Titulo Original B", "en", 10.0, 7.0)
+            MovieItem(1, "Película A", "Overview A", "2023-01-01", "posterA", null, "Titulo Original A", "en", 10.0, 8.5),
+            MovieItem(2, "Película B", "Overview B", "2023-01-01", "posterB", null, "Titulo Original B", "en", 10.0, 7.0)
         )
 
         // Act
@@ -44,10 +44,10 @@ class LocalDataCacheTest {
     fun `setMovies deberia reemplazar completamente la lista existente`() {
         // Arrange
         val initialListMovies = listOf(
-            Movie(1, "Película Inicial", "Overview", "2023-01-01", "poster", null, "Original", "en", 10.0, 8.5)
+            MovieItem(1, "Película Inicial", "Overview", "2023-01-01", "poster", null, "Original", "en", 10.0, 8.5)
         )
         val newListMovies = listOf(
-            Movie(2, "Nueva Película", "Overview", "2023-01-01", "poster", null, "Original", "en", 10.0, 7.0)
+            MovieItem(2, "Nueva Película", "Overview", "2023-01-01", "poster", null, "Original", "en", 10.0, 7.0)
         )
 
         // Act
@@ -64,7 +64,7 @@ class LocalDataCacheTest {
     fun `setMovies deberia vaciar la lista cuando recibe una lista vacia`() {
         // Arrange
         val initialListMovies = listOf(
-            Movie(1, "Película Inicial", "Overview", "2023-01-01", "poster", null, "Original", "en", 10.0, 8.5)
+            MovieItem(1, "Película Inicial", "Overview", "2023-01-01", "poster", null, "Original", "en", 10.0, 8.5)
         )
 
         // Acts

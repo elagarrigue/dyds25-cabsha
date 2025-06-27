@@ -32,14 +32,14 @@ import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailScreen(viewModel: DetailScreenViewModel, id: Int, onBack: () -> Unit) {
+fun DetailScreen(viewModel: DetailScreenViewModel, title: String, onBack: () -> Unit) {
 
     val state by viewModel.movieDetailStateFlow.collectAsState(DetailScreenViewModel.MovieDetailUiState())
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
     LaunchedEffect(Unit) {
-        viewModel.getMovieDetail(id)
+        viewModel.getMovieByTitle(title)
     }
 
     MaterialTheme {
@@ -61,7 +61,7 @@ fun DetailScreen(viewModel: DetailScreenViewModel, id: Int, onBack: () -> Unit) 
 
                 when {
                     state.movie != EmptyMovie -> MovieDetail(movie = state.movie as MovieItem, modifier = Modifier.padding(padding))
-                    state.isLoading.not() -> NoResults { viewModel.getMovieDetail(id) }
+                    state.isLoading.not() -> NoResults { viewModel.getMovieByTitle(title) }
                 }
             }
         }

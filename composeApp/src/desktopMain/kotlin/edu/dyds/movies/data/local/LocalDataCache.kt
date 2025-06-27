@@ -1,15 +1,15 @@
 package edu.dyds.movies.data.local
 
-import edu.dyds.movies.domain.entity.Movie
+import edu.dyds.movies.domain.entity.MovieItem
 
 class LocalDataCache: LocalDataSource {
-    private val moviesCache: MutableList<Movie> = mutableListOf()
+    private val moviesCache: MutableList<MovieItem> = mutableListOf()
 
-    override fun getMovies(): List<Movie> {
+    override fun getMovies(): List<MovieItem> {
         return moviesCache
     }
 
-    override fun setMovies(cache: List<Movie>){
+    override fun setMovies(cache: List<MovieItem>){
         moviesCache.clear()
         moviesCache.addAll(cache)
     }

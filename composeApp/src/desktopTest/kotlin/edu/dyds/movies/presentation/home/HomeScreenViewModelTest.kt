@@ -1,6 +1,6 @@
 package edu.dyds.movies.presentation.home
 
-import edu.dyds.movies.domain.entity.Movie
+import edu.dyds.movies.domain.entity.MovieItem
 import edu.dyds.movies.domain.entity.QualifiedMovie
 import edu.dyds.movies.domain.usecase.IPopularMoviesUseCase
 import fakes.PopularMoviesUseCaseFake
@@ -59,9 +59,9 @@ class HomeScreenViewModelTest {
             expected = HomeScreenViewModel.MoviesUiState(
                 isLoading = false,
                 movies = listOf(
-                    QualifiedMovie(Movie(1, "Buena", "Overview", "2022-01-01", "poster", null, "Titulo Original", "en", 10.0, 8.5), true),
-                    QualifiedMovie(Movie(2, "Mala", "Overview", "2022-01-01", "poster", null, "Titulo Original", "en", 10.0, 4.0), false),
-                    QualifiedMovie(Movie(3, "Regular", "Overview", "2022-01-01", "poster", null, "Titulo Original", "en", 10.0, 5.0), false)
+                    QualifiedMovie(MovieItem(1, "Buena", "Overview", "2022-01-01", "poster", null, "Titulo Original", "en", 10.0, 8.5), true),
+                    QualifiedMovie(MovieItem(2, "Mala", "Overview", "2022-01-01", "poster", null, "Titulo Original", "en", 10.0, 4.0), false),
+                    QualifiedMovie(MovieItem(3, "Regular", "Overview", "2022-01-01", "poster", null, "Titulo Original", "en", 10.0, 5.0), false)
                 )
             ),
             actual = events[1]

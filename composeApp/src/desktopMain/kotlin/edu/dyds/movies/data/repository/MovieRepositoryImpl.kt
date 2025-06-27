@@ -13,20 +13,19 @@ class MovieRepositoryImpl(
     override suspend fun getPopularMovies(): List<MovieItem> {
         return try {
             val localMovies = localData.getMovies()
-            val result = localMovies.ifEmpty {
+            localMovies.ifEmpty {
                 val remoteMovies = externalData.getPopularMovies()
                 localData.setMovies(remoteMovies)
                 remoteMovies
             }
-            result.filterIsInstance<MovieItem>()
         } catch (e: Exception) {
             emptyList()
         }
     }
 
-    override suspend fun getMovieDetails(id: Int): Movie {
+    override suspend fun getMovieByTitle(title: String): Movie {
         return try {
-            externalData.getMovieDetails(id)
+            externalData.getMovieByTitle(title)
         } catch (e: Exception) {
             EmptyMovie
         }

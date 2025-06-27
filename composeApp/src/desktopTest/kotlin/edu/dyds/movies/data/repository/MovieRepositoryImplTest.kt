@@ -1,6 +1,7 @@
 package edu.dyds.movies.data.repository
 
-import edu.dyds.movies.domain.entity.Movie
+import edu.dyds.movies.domain.entity.EmptyMovie
+import edu.dyds.movies.domain.entity.MovieItem
 import fakes.ExternalDataSourceFake
 import fakes.LocalDataSourceFake
 import kotlinx.coroutines.test.runTest
@@ -15,7 +16,7 @@ class MovieRepositoryImplTest {
     fun `deberia devolver peliculas desde el cache si existen`() = runTest {
         // Arrange
         val local = LocalDataSourceFake().apply {
-            cache.add(Movie(2, "Local", "Overview", "2022", "poster", null, "Original", "en", 10.0, 7.0))
+            cache.add(MovieItem(2, "Local", "Overview", "2022", "poster", null, "Original", "en", 10.0, 7.0))
         }
         val external = ExternalDataSourceFake()
         val repository = MovieRepositoryImpl(local, external)
@@ -71,16 +72,15 @@ class MovieRepositoryImplTest {
         val repository = MovieRepositoryImpl(local, external)
 
         // Act
-        val result = repository.getMovieDetails(5)
+        val result = repository.getMovieByTitle("Detalle 5") as MovieItem
 
         // Assert
-        assertEquals(5, result?.id)
-        assertEquals("Detalle 5", result?.title)
-        assertEquals(5, external.getMovieDetailsCalledWith)
+        assertEquals("Detalle 5", result.title)
+        assertEquals("Detalle 5", external.getMovieDetailsCalledWith)
     }
 
     @Test
-    fun `deberia devolver null si ocurre algun error en getMovieDetails`() = runTest {
+    fun `deberia devolver EmptyMovie si ocurre algun error en getMovieDetails`() = runTest {
         // Arrange
         val repository = MovieRepositoryImpl(
             localData = LocalDataSourceFake(),
@@ -88,9 +88,9 @@ class MovieRepositoryImplTest {
         )
 
         // Act
-        val result = repository.getMovieDetails(7)
+        val result = repository.getMovieByTitle("Detalle 7")
 
         //Assert
-        assertEquals(result, null)
+        assertEquals(result, EmptyMovie)
     }
 }
