@@ -20,9 +20,6 @@ class DetailScreenViewModel (
         fun getMovieDetail(id: Int) {
             viewModelScope.launch {
                 movieDetailStateMutableStateFlow.emit(
-                    MovieDetailUiState(isLoading = true)
-                )
-                movieDetailStateMutableStateFlow.emit(
                     MovieDetailUiState(
                         isLoading = false,
                         movie = detailsUseCase.invoke(id)
@@ -32,7 +29,7 @@ class DetailScreenViewModel (
         }
 
         data class MovieDetailUiState(
-            val isLoading: Boolean = false,
+            val isLoading: Boolean = true,
             val movie: Movie? = null,
         )
 }

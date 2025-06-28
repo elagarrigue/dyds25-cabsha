@@ -21,7 +21,11 @@ class MovieRepositoryImpl(
         }
     }
 
-    override suspend fun getMovieDetails(id: Int): Movie {
-        return externalData.getMovieDetails(id)
+    override suspend fun getMovieDetails(id: Int): Movie? {
+        return try {
+            externalData.getMovieDetails(id)
+        } catch (e: Exception) {
+            null
+        }
     }
 }
