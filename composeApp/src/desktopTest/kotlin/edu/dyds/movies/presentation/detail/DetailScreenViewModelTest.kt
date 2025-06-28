@@ -59,16 +59,16 @@ class DetailScreenViewModelTest {
             expected = DetailScreenViewModel.MovieDetailUiState(
                 isLoading = false,
                 movie = MovieItem(
-                    1,
+                    4,
                     "Movie 1",
-                    "the movie Movie 1 overview",
-                    "21/10/2023",
-                    "poster url",
-                    "backdrop url",
-                    "Original Movie Movie 1",
+                    "Detail",
+                    "2022-01-01",
+                    "poster",
+                    null,
+                    "Original",
                     "en",
-                    10.0,
-                    8.0
+                    5.0,
+                    6.9
                 )
             ),
             actual = events[1]

@@ -17,7 +17,6 @@ class TMDBMoviesExternalData(private val tmdbHttpClient: HttpClient): ExternalDa
         tmdbHttpClient.get("/3/discover/movie?sort_by=popularity.desc").body()
 
     private suspend fun getTMDBMovieDetails(title: String): RemoteResult {
-        val encodedTitle = title.replace(" ","%20")
-        return tmdbHttpClient.get("/3/search/movie?query=$encodedTitle&").body()
+        return tmdbHttpClient.get("/3/search/movie?query=$title").body()
     }
 }

@@ -1,7 +1,7 @@
 package edu.dyds.movies.data.local
 
 import edu.dyds.movies.domain.entity.MovieItem
-import org.junit.Test
+import kotlin.test.Test
 import kotlin.test.BeforeTest
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
