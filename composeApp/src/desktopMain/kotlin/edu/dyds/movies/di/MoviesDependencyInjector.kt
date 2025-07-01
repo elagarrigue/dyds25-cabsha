@@ -2,7 +2,7 @@ package edu.dyds.movies.di
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
-import edu.dyds.movies.data.external.ExternalData
+import edu.dyds.movies.data.external.TMDBMoviesExternalData
 import edu.dyds.movies.data.external.ExternalDataSource
 import edu.dyds.movies.data.local.LocalDataCache
 
@@ -23,7 +23,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 
-private const val API_KEY = "d18da1b5da16397619c688b0263cd281"
+private const val TMDB_API_KEY = "d18da1b5da16397619c688b0263cd281"
 
 object MoviesDependencyInjector {
 
@@ -38,7 +38,7 @@ object MoviesDependencyInjector {
                 url {
                     protocol = URLProtocol.HTTPS
                     host = "api.themoviedb.org"
-                    parameters.append("api_key", API_KEY)
+                    parameters.append("api_key", TMDB_API_KEY)
                 }
             }
             install(HttpTimeout) {
@@ -46,8 +46,8 @@ object MoviesDependencyInjector {
             }
         }
     private val localData: LocalDataSource = LocalDataCache()
-    private val externalData: ExternalDataSource = ExternalData(tmdbHttpClient)
-    private val repository: MoviesRepository = MovieRepositoryImpl(localData, externalData)
+    private val TMDBMoviesExternalData: ExternalDataSource = TMDBMoviesExternalData(tmdbHttpClient)
+    private val repository: MoviesRepository = MovieRepositoryImpl(localData, TMDBMoviesExternalData)
     private val homeUseCase: IPopularMoviesUseCase = GetPopularMoviesUseCase(repository)
     private val detailsUseCase: IMovieDetailsUseCase = GetMovieDetailsUseCase(repository)
 
