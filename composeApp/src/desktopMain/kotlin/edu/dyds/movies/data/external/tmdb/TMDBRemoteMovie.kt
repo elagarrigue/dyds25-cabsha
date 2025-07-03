@@ -1,4 +1,4 @@
-package edu.dyds.movies.data.external
+package edu.dyds.movies.data.external.tmdb
 
 import edu.dyds.movies.domain.entity.MovieItem
 import kotlinx.serialization.SerialName

@@ -1,11 +1,11 @@
 package fakes
 
-import edu.dyds.movies.data.external.ExternalDataSource
+import edu.dyds.movies.data.external.MoviesExternalDataSource
 import edu.dyds.movies.domain.entity.MovieItem
 
-class ExternalDataSourceFake(
+class MoviesExternalDataSourceFake(
     private val shouldThrow: Boolean = false
-) : ExternalDataSource {
+) : MoviesExternalDataSource {
 
     var getPopularMoviesCalled = false
     var getMovieDetailsCalledWith: String? = null

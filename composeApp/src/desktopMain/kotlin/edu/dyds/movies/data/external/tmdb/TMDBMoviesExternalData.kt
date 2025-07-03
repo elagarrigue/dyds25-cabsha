@@ -1,13 +1,13 @@
 package edu.dyds.movies.data.external.tmdb
 
-import edu.dyds.movies.data.external.ExternalDataSource
-import edu.dyds.movies.data.external.RemoteResult
+import edu.dyds.movies.data.external.MoviesExternalDataSource
+import edu.dyds.movies.data.external.MovieExternalDataSource
 import edu.dyds.movies.domain.entity.MovieItem
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
 
-class TMDBMoviesExternalData(private val tmdbHttpClient: HttpClient): ExternalDataSource {
+class TMDBMoviesExternalData(private val tmdbHttpClient: HttpClient): MoviesExternalDataSource, MovieExternalDataSource {
 
     override suspend fun getPopularMovies(): List<MovieItem> =
         getTMDBMovies().results.map { it.toDomainMovie() }

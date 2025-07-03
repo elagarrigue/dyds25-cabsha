@@ -2,7 +2,7 @@ package edu.dyds.movies.data.repository
 
 import edu.dyds.movies.domain.entity.EmptyMovie
 import edu.dyds.movies.domain.entity.MovieItem
-import fakes.ExternalDataSourceFake
+import fakes.MoviesExternalDataSourceFake
 import fakes.LocalDataSourceFake
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -18,7 +18,7 @@ class MovieRepositoryImplTest {
         val local = LocalDataSourceFake().apply {
             cache.add(MovieItem(2, "Local", "Overview", "2022", "poster", null, "Original", "en", 10.0, 7.0))
         }
-        val external = ExternalDataSourceFake()
+        val external = MoviesExternalDataSourceFake()
         val repository = MovieRepositoryImpl(local, external)
 
         // Act
@@ -35,7 +35,7 @@ class MovieRepositoryImplTest {
     fun `deberia obtener peliculas desde remoto y cachearlas si no hay cache`() = runTest {
         // Arrange
         val local = LocalDataSourceFake()
-        val external = ExternalDataSourceFake()
+        val external = MoviesExternalDataSourceFake()
         val repository = MovieRepositoryImpl(local, external)
 
         // Act
@@ -53,7 +53,7 @@ class MovieRepositoryImplTest {
     fun `deberia devolver lista vacia si ocurre algun error al obtener peliculas`() = runTest {
         // Arrange
         val local = LocalDataSourceFake()
-        val external = ExternalDataSourceFake(shouldThrow = true)
+        val external = MoviesExternalDataSourceFake(shouldThrow = true)
         val repository = MovieRepositoryImpl(local, external)
 
         // Act
@@ -68,7 +68,7 @@ class MovieRepositoryImplTest {
     fun `deberia obtener detalles de pelicula desde remoto`() = runTest {
         // Arrange
         val local = LocalDataSourceFake()
-        val external = ExternalDataSourceFake()
+        val external = MoviesExternalDataSourceFake()
         val repository = MovieRepositoryImpl(local, external)
 
         // Act
@@ -84,7 +84,7 @@ class MovieRepositoryImplTest {
         // Arrange
         val repository = MovieRepositoryImpl(
             localData = LocalDataSourceFake(),
-            externalData = ExternalDataSourceFake(shouldThrow = true)
+            externalData = MoviesExternalDataSourceFake(shouldThrow = true)
         )
 
         // Act

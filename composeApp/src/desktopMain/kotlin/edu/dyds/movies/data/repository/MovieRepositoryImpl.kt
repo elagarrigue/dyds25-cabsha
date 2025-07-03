@@ -1,6 +1,7 @@
 package edu.dyds.movies.data.repository
 
-import edu.dyds.movies.data.external.ExternalDataSource
+import edu.dyds.movies.data.external.MovieExternalDataSource
+import edu.dyds.movies.data.external.MoviesExternalDataSource
 import edu.dyds.movies.data.local.LocalDataSource
 import edu.dyds.movies.domain.entity.EmptyMovie
 import edu.dyds.movies.domain.entity.Movie
@@ -8,7 +9,8 @@ import edu.dyds.movies.domain.entity.MovieItem
 import edu.dyds.movies.domain.repository.MoviesRepository
 
 class MovieRepositoryImpl(
-    private val localData: LocalDataSource, private val externalData: ExternalDataSource
+    private val localData: LocalDataSource, private val externalData: MoviesExternalDataSource,
+    private val externalDetails: MovieExternalDataSource
 ): MoviesRepository {
     override suspend fun getPopularMovies(): List<MovieItem> {
         return try {
@@ -25,7 +27,7 @@ class MovieRepositoryImpl(
 
     override suspend fun getMovieByTitle(title: String): Movie {
         return try {
-            externalData.getMovieByTitle(title)
+            externalDetails.getMovieByTitle(title)
         } catch (e: Exception) {
             EmptyMovie
         }
