@@ -2,8 +2,11 @@ package edu.dyds.movies.data.external.broker
 
 import edu.dyds.movies.data.external.MovieExternalDataSource
 import edu.dyds.movies.data.external.MoviesExternalDataSource
+import edu.dyds.movies.domain.entity.EmptyMovie
 import edu.dyds.movies.domain.entity.MovieItem
 
+private val omdbNotFound: MovieItem =
+    MovieItem(0,"","","","","","","",0.0,0.0)
 class MovieBroker(
     private val tmdbMoviesService: MoviesExternalDataSource,
     private val tmdbMovieDetails: MovieExternalDataSource,
@@ -31,18 +34,7 @@ class MovieBroker(
         return try {
             omdbMovieDetails.getMovieByTitle(title)
         } catch (e: Exception) {
-            MovieItem(
-                id = 0,
-                title = "",
-                overview = "",
-                releaseDate = "",
-                poster = "",
-                backdrop = "",
-                originalTitle = "",
-                originalLanguage = "",
-                popularity = 0.0,
-                voteAverage = 0.0
-            )
+            omdbNotFound
         }
     }
 
@@ -54,7 +46,7 @@ class MovieBroker(
         val omdbDetails = getExternalData(title)
 
         val details = when {
-            omdbDetails.title != tmdbDetails.title -> tmdbDetails.copy(overview = "TMDB: ${tmdbDetails.overview}")
+            omdbDetails == omdbNotFound -> tmdbDetails.copy(overview = "TMDB: ${tmdbDetails.overview}")
             else -> buildMovie(tmdbDetails, omdbDetails)
         }
 
