@@ -3,6 +3,7 @@ package edu.dyds.movies.data.repository
 import edu.dyds.movies.domain.entity.EmptyMovie
 import edu.dyds.movies.domain.entity.MovieItem
 import fakes.MoviesExternalDataSourceFake
+import fakes.MovieExternalDataSourceFake
 import fakes.LocalDataSourceFake
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -19,7 +20,8 @@ class MovieRepositoryImplTest {
             cache.add(MovieItem(2, "Local", "Overview", "2022", "poster", null, "Original", "en", 10.0, 7.0))
         }
         val external = MoviesExternalDataSourceFake()
-        val repository = MovieRepositoryImpl(local, external)
+        val externalDetails = MovieExternalDataSourceFake()
+        val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
         val result = repository.getPopularMovies()
@@ -36,7 +38,8 @@ class MovieRepositoryImplTest {
         // Arrange
         val local = LocalDataSourceFake()
         val external = MoviesExternalDataSourceFake()
-        val repository = MovieRepositoryImpl(local, external)
+        val externalDetails = MovieExternalDataSourceFake()
+        val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
         val result = repository.getPopularMovies()
@@ -54,7 +57,8 @@ class MovieRepositoryImplTest {
         // Arrange
         val local = LocalDataSourceFake()
         val external = MoviesExternalDataSourceFake(shouldThrow = true)
-        val repository = MovieRepositoryImpl(local, external)
+        val externalDetails = MovieExternalDataSourceFake()
+        val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
         val result = repository.getPopularMovies()
@@ -69,14 +73,15 @@ class MovieRepositoryImplTest {
         // Arrange
         val local = LocalDataSourceFake()
         val external = MoviesExternalDataSourceFake()
-        val repository = MovieRepositoryImpl(local, external)
+        val externalDetails = MovieExternalDataSourceFake()
+        val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
         val result = repository.getMovieByTitle("Detalle 5") as MovieItem
 
         // Assert
         assertEquals("Detalle 5", result.title)
-        assertEquals("Detalle 5", external.getMovieDetailsCalledWith)
+        assertEquals("Detalle 5", externalDetails.getMovieByTitle("Detalle 5").title)
     }
 
     @Test
@@ -84,7 +89,8 @@ class MovieRepositoryImplTest {
         // Arrange
         val repository = MovieRepositoryImpl(
             localData = LocalDataSourceFake(),
-            externalData = MoviesExternalDataSourceFake(shouldThrow = true)
+            externalData = MoviesExternalDataSourceFake(),
+            externalDetails = MovieExternalDataSourceFake(shouldThrow = true)
         )
 
         // Act
