@@ -1,6 +1,7 @@
 package edu.dyds.movies.presentation.detail
 
-import edu.dyds.movies.domain.entity.Movie
+import edu.dyds.movies.domain.entity.EmptyMovie
+import edu.dyds.movies.domain.entity.MovieItem
 import edu.dyds.movies.domain.usecase.IMovieDetailsUseCase
 import fakes.MovieDetailsUseCaseFake
 import kotlinx.coroutines.CoroutineScope
@@ -47,27 +48,27 @@ class DetailScreenViewModelTest {
         }
 
         // Act
-        detailViewModel.getMovieDetail(1)
+        detailViewModel.getMovieByTitle("Movie 1")
 
         // Assert
         assertEquals(
-            expected = DetailScreenViewModel.MovieDetailUiState(isLoading = true, movie = null),
+            expected = DetailScreenViewModel.MovieDetailUiState(isLoading = true, movie = EmptyMovie),
             actual = events[0]
         )
         assertEquals(
             expected = DetailScreenViewModel.MovieDetailUiState(
                 isLoading = false,
-                movie = Movie(
-                    1,
+                movie = MovieItem(
+                    4,
                     "Movie 1",
-                    "the movie 1 overview",
-                    "21/10/2023",
-                    "poster url",
-                    "backdrop url",
-                    "Original Movie 1",
+                    "Detail",
+                    "2022-01-01",
+                    "poster",
+                    null,
+                    "Original",
                     "en",
-                    10.0,
-                    8.0
+                    5.0,
+                    6.9
                 )
             ),
             actual = events[1]

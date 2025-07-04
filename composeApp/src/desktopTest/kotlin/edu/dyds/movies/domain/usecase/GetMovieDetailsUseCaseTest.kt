@@ -1,5 +1,6 @@
 package edu.dyds.movies.domain.usecase
 
+import edu.dyds.movies.domain.entity.MovieItem
 import fakes.MoviesRepositoryFake
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -14,11 +15,10 @@ class GetMovieDetailsUseCaseTest {
         val useCase = GetMovieDetailsUseCase(fakeRepository)
 
         // Act
-        val result = useCase.invoke(42)
+        val result = useCase.invoke("Titulo 42") as MovieItem
 
         // Assert
-        assertEquals(42, result?.id)
-        assertEquals("Titulo 42", result?.title)
-        assertEquals(42, fakeRepository.getMovieDetailsCalledWith)
+        assertEquals("Titulo 42", result.title)
+        assertEquals("Titulo 42", fakeRepository.getMovieDetailsCalledWith)
     }
 }
