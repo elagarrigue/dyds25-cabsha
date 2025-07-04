@@ -25,7 +25,7 @@ class MovieBrokerTest {
     }
 
     @Test
-    fun `getOMDBDetails deberia retornar solo los detalles de TMDB si OMDB falla`() = runTest {
+    fun `getMovieByTitle deberia retornar solo los detalles de TMDB si OMDB falla`() = runTest {
         //Arrange
         val tmdbDataFake = MovieExternalDataSourceFake()
         val omdbDataFake = object: MovieExternalDataSource {
