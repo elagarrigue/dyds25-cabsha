@@ -20,6 +20,15 @@ class MovieFake {
     fun detailedMovie(title: String): MovieItem =
         MovieItem(4, title, "Detail", "2022-01-01", "poster", null, "Original", "en", 5.0, 6.9)
 
+    fun brokerMovie(title: String): MovieItem =
+        MovieItem(id=4, title, "TMDB: Detail\n\nOMDB: Detail", "2022-01-01", "poster", null, "Original", "en", 5.0, 6.9)
+
     fun remoteMovie(): List<MovieItem> =
         listOf(MovieItem(5, "Remota", "Overview", "2022", "poster", null, "Original", "en", 10.0, 8.0))
+
+    fun notFoundMovie(): MovieItem =
+        MovieItem(0,"","","","","","","",0.0,0.0)
+
+    fun tmdbMovie(title: String): MovieItem =
+        MovieItem(4, title, "TMDB: Detail", "2022-01-01", "poster", null, "Original", "en", 5.0, 6.9)
 }
