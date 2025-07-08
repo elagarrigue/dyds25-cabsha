@@ -1,5 +1,6 @@
 package fakes
 
+import edu.dyds.movies.domain.entity.EmptyMovie
 import edu.dyds.movies.domain.entity.QualifiedMovie
 import  edu.dyds.movies.domain.entity.MovieItem
 
@@ -26,9 +27,10 @@ class MovieFake {
     fun remoteMovie(): List<MovieItem> =
         listOf(MovieItem(5, "Remota", "Overview", "2022", "poster", null, "Original", "en", 10.0, 8.0))
 
-    fun notFoundMovie(): MovieItem =
-        MovieItem(0,"","","","","","","",0.0,0.0)
-
+    fun notFoundMovie(): EmptyMovie = EmptyMovie
     fun tmdbMovie(title: String): MovieItem =
         MovieItem(4, title, "TMDB: Detail", "2022-01-01", "poster", null, "Original", "en", 5.0, 6.9)
+
+    fun omdbMovie(title: String): MovieItem =
+        MovieItem(4, title, "OMDB: Detail", "2022-01-01", "poster", null, "Original", "en", 5.0, 6.9)
 }

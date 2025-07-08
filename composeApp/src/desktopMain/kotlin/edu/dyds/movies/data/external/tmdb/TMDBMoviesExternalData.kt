@@ -2,6 +2,7 @@ package edu.dyds.movies.data.external.tmdb
 
 import edu.dyds.movies.data.external.MoviesExternalDataSource
 import edu.dyds.movies.data.external.MovieExternalDataSource
+import edu.dyds.movies.domain.entity.Movie
 import edu.dyds.movies.domain.entity.MovieItem
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -12,7 +13,7 @@ class TMDBMoviesExternalData(private val tmdbHttpClient: HttpClient): MoviesExte
     override suspend fun getPopularMovies(): List<MovieItem> =
         getTMDBMovies().results.map { it.toDomainMovie() }
 
-    override suspend fun getMovieByTitle(title: String): MovieItem =
+    override suspend fun getMovieByTitle(title: String): Movie =
         getTMDBMovieDetails(title).results.first().toDomainMovie()
 
     private suspend fun getTMDBMovies(): RemoteResult =

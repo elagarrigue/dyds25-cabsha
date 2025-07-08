@@ -1,7 +1,7 @@
 package fakes
 
 import edu.dyds.movies.data.external.MovieExternalDataSource
-import edu.dyds.movies.domain.entity.MovieItem
+import edu.dyds.movies.domain.entity.Movie
 
 class MovieExternalDataSourceFake (
     private val shouldThrow: Boolean = false
@@ -10,7 +10,7 @@ class MovieExternalDataSourceFake (
     var getMovieDetailsCalledWith: String? = null
     private val movieFake = MovieFake()
 
-    override suspend fun getMovieByTitle(title: String): MovieItem {
+    override suspend fun getMovieByTitle(title: String): Movie {
         getMovieDetailsCalledWith = title
         if (shouldThrow) throw RuntimeException("Fallo detalle")
         return movieFake.detailedMovie(title)

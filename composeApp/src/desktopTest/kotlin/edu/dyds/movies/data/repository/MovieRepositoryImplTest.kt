@@ -77,11 +77,12 @@ class MovieRepositoryImplTest {
         val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
+        val remoteDetailsTitle = (externalDetails.getMovieByTitle("Detalle 5") as MovieItem).title
         val result = repository.getMovieByTitle("Detalle 5") as MovieItem
 
         // Assert
         assertEquals("Detalle 5", result.title)
-        assertEquals("Detalle 5", externalDetails.getMovieByTitle("Detalle 5").title)
+        assertEquals("Detalle 5", remoteDetailsTitle)
     }
 
     @Test

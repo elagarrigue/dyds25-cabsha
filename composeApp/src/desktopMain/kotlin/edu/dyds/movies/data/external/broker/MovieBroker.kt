@@ -1,10 +1,10 @@
 package edu.dyds.movies.data.external.broker
 
 import edu.dyds.movies.data.external.MovieExternalDataSource
+import edu.dyds.movies.domain.entity.EmptyMovie
+import edu.dyds.movies.domain.entity.Movie
 import edu.dyds.movies.domain.entity.MovieItem
 
-private val omdbNotFound: MovieItem =
-    MovieItem(0,"","","","","","","",0.0,0.0)
 class MovieBroker(
     private val tmdbMovieDetails: MovieExternalDataSource,
     private val omdbMovieDetails: MovieExternalDataSource
@@ -27,23 +27,33 @@ class MovieBroker(
             voteAverage = (tmdbMovie.voteAverage + omdbMovie.voteAverage) / 2.0
         )
 
-    private suspend fun getOMDBDetails(title: String): MovieItem {
+    private suspend fun getOMDBDetails(title: String): Movie {
         return try {
             omdbMovieDetails.getMovieByTitle(title)
         } catch (e: Exception) {
-            omdbNotFound
+            EmptyMovie
         }
     }
 
-    override suspend fun getMovieByTitle(title: String): MovieItem {
-        val tmdbDetails = tmdbMovieDetails.getMovieByTitle(title)
+    private suspend fun getTMDBDetails(title: String): Movie {
+        return try {
+            tmdbMovieDetails.getMovieByTitle(title)
+        } catch (e: Exception) {
+            EmptyMovie
+        }
+    }
+
+    override suspend fun getMovieByTitle(title: String): Movie {
+        val tmdbDetails = getTMDBDetails(title)
         val omdbDetails = getOMDBDetails(title)
 
-        val details = when {
-            omdbDetails == omdbNotFound -> tmdbDetails.copy(overview = "TMDB: ${tmdbDetails.overview}")
-            else -> buildMovie(tmdbDetails, omdbDetails)
+        val movieDetails: Movie = when {
+            tmdbDetails != EmptyMovie && omdbDetails != EmptyMovie -> buildMovie((tmdbDetails as MovieItem), (omdbDetails as MovieItem))
+            tmdbDetails != EmptyMovie -> (tmdbDetails as MovieItem).copy(overview = "TMDB: ${tmdbDetails.overview}")
+            omdbDetails != EmptyMovie -> (omdbDetails as MovieItem).copy(overview = "OMDB: ${omdbDetails.overview}")
+            else -> EmptyMovie
         }
 
-        return details
+        return movieDetails
     }
 }

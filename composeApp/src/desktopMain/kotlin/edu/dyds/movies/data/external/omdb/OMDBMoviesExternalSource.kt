@@ -1,7 +1,7 @@
 package edu.dyds.movies.data.external.omdb
 
 import edu.dyds.movies.data.external.MovieExternalDataSource
-import edu.dyds.movies.domain.entity.MovieItem
+import edu.dyds.movies.domain.entity.Movie
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.request.*
@@ -10,7 +10,7 @@ internal class OMDBMoviesExternalSource(
     private val omdbHttpClient: HttpClient,
     ): MovieExternalDataSource {
 
-        override suspend fun getMovieByTitle(title: String): MovieItem =
+        override suspend fun getMovieByTitle(title: String): Movie =
             getOMBDMovieDetails(title).toDomainMovie()
 
         private suspend fun getOMBDMovieDetails(title: String): OMBDRemoteMovie =
