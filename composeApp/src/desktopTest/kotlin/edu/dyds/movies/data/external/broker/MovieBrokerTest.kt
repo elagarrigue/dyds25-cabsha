@@ -15,11 +15,11 @@ class MovieBrokerTest {
     fun `getMovieByTitle deberia retornar los detalles de las peliculas de ambos servicios en un solo resultado`() = runTest {
         //Arrange
         val externalDataFake = MovieExternalDataSourceFake()
-        val fakeMovie = MovieFake().brokerMovie("fake")
+        val fakeMovie = MovieFake().brokerMovie("DualMovie")
         val broker = MovieBroker(externalDataFake, externalDataFake)
 
         //Act
-        val search = broker.getMovieByTitle("fake")
+        val search = broker.getMovieByTitle("DualMovie")
 
         //Assert
         assertEquals(fakeMovie, search)
@@ -33,11 +33,11 @@ class MovieBrokerTest {
             override suspend fun getMovieByTitle(title: String): Movie =
                 MovieFake().notFoundMovie()
         }
-        val fakeMovie = MovieFake().tmdbMovie("fake")
+        val fakeMovie = MovieFake().tmdbMovie("TMDB Only")
         val broker = MovieBroker(tmdbDataFake, omdbDataFake)
 
         //Act
-        val search = broker.getMovieByTitle("fake")
+        val search = broker.getMovieByTitle("TMDB Only")
 
         //Assert
         assertEquals(fakeMovie, search)
@@ -51,11 +51,11 @@ class MovieBrokerTest {
             override suspend fun getMovieByTitle(title: String): Movie =
                 MovieFake().notFoundMovie()
         }
-        val fakeMovie = MovieFake().omdbMovie("fake")
+        val fakeMovie = MovieFake().omdbMovie("OMDB Only")
         val broker = MovieBroker(tmdbDataFake, omdbDataFake)
 
         //Act
-        val search = broker.getMovieByTitle("fake")
+        val search = broker.getMovieByTitle("OMDB Only")
 
         //Assert
         assertEquals(fakeMovie, search)
@@ -77,7 +77,7 @@ class MovieBrokerTest {
         val broker = MovieBroker(tmdbDataFake, omdbDataFake)
 
         //Act
-        val search = broker.getMovieByTitle("fake")
+        val search = broker.getMovieByTitle("No Service")
 
         //Assert
         assertEquals(fakeMovie, search)

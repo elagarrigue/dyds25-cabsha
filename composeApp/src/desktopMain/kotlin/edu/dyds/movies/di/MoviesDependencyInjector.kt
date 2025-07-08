@@ -70,9 +70,9 @@ object MoviesDependencyInjector {
 
     private val localData: LocalDataSource = LocalDataCache()
     private val tmdbMoviesExternalData: TMDBMoviesExternalData = TMDBMoviesExternalData(tmdbHttpClient)
-    private val omdbMoviesExternalSource: MovieExternalDataSource = OMDBMoviesExternalSource(omdbHttpClient)
-    private val movieBrokerDetailsService: MovieExternalDataSource = MovieBroker( tmdbMoviesExternalData, omdbMoviesExternalSource)
-    private val repository: MoviesRepository = MovieRepositoryImpl(localData, tmdbMoviesExternalData, movieBrokerDetailsService)
+    private val omdbMoviesExternalData: MovieExternalDataSource = OMDBMoviesExternalSource(omdbHttpClient)
+    private val movieBroker: MovieExternalDataSource = MovieBroker( tmdbMoviesExternalData, omdbMoviesExternalData)
+    private val repository: MoviesRepository = MovieRepositoryImpl(localData, tmdbMoviesExternalData, movieBroker)
     private val homeUseCase: IPopularMoviesUseCase = GetPopularMoviesUseCase(repository)
     private val detailsUseCase: IMovieDetailsUseCase = GetMovieDetailsUseCase(repository)
 
