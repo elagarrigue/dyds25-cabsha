@@ -31,7 +31,7 @@ class MovieBrokerTest {
         val tmdbDataFake = MovieExternalDataSourceFake()
         val omdbDataFake = object: MovieExternalDataSource {
             override suspend fun getMovieByTitle(title: String): Movie =
-                MovieFake().notFoundMovie()
+                throw Exception("Fallo en OMBD")
         }
         val fakeMovie = MovieFake().tmdbMovie("TMDB Only")
         val broker = MovieBroker(tmdbDataFake, omdbDataFake)
@@ -49,7 +49,7 @@ class MovieBrokerTest {
         val omdbDataFake = MovieExternalDataSourceFake()
         val tmdbDataFake = object: MovieExternalDataSource {
             override suspend fun getMovieByTitle(title: String): Movie =
-                MovieFake().notFoundMovie()
+                throw Exception("Fallo en TMBD")
         }
         val fakeMovie = MovieFake().omdbMovie("OMDB Only")
         val broker = MovieBroker(tmdbDataFake, omdbDataFake)
@@ -66,11 +66,11 @@ class MovieBrokerTest {
         //Arrange
         val omdbDataFake = object: MovieExternalDataSource {
             override suspend fun getMovieByTitle(title: String): Movie =
-                MovieFake().notFoundMovie()
+                throw Exception("Fallo en OMBD")
         }
         val tmdbDataFake = object: MovieExternalDataSource {
             override suspend fun getMovieByTitle(title: String): Movie =
-                MovieFake().notFoundMovie()
+                throw Exception("Fallo en TMBD")
         }
 
         val fakeMovie = EmptyMovie
