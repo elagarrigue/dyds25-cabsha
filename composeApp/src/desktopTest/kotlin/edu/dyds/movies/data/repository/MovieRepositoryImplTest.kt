@@ -1,7 +1,9 @@
 package edu.dyds.movies.data.repository
 
-import edu.dyds.movies.domain.entity.Movie
-import fakes.ExternalDataSourceFake
+import edu.dyds.movies.domain.entity.EmptyMovie
+import edu.dyds.movies.domain.entity.MovieItem
+import fakes.MoviesExternalDataSourceFake
+import fakes.MovieExternalDataSourceFake
 import fakes.LocalDataSourceFake
 import kotlinx.coroutines.test.runTest
 import kotlin.test.Test
@@ -15,10 +17,11 @@ class MovieRepositoryImplTest {
     fun `deberia devolver peliculas desde el cache si existen`() = runTest {
         // Arrange
         val local = LocalDataSourceFake().apply {
-            cache.add(Movie(2, "Local", "Overview", "2022", "poster", null, "Original", "en", 10.0, 7.0))
+            cache.add(MovieItem(2, "Local", "Overview", "2022", "poster", null, "Original", "en", 10.0, 7.0))
         }
-        val external = ExternalDataSourceFake()
-        val repository = MovieRepositoryImpl(local, external)
+        val external = MoviesExternalDataSourceFake()
+        val externalDetails = MovieExternalDataSourceFake()
+        val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
         val result = repository.getPopularMovies()
@@ -34,8 +37,9 @@ class MovieRepositoryImplTest {
     fun `deberia obtener peliculas desde remoto y cachearlas si no hay cache`() = runTest {
         // Arrange
         val local = LocalDataSourceFake()
-        val external = ExternalDataSourceFake()
-        val repository = MovieRepositoryImpl(local, external)
+        val external = MoviesExternalDataSourceFake()
+        val externalDetails = MovieExternalDataSourceFake()
+        val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
         val result = repository.getPopularMovies()
@@ -52,8 +56,9 @@ class MovieRepositoryImplTest {
     fun `deberia devolver lista vacia si ocurre algun error al obtener peliculas`() = runTest {
         // Arrange
         val local = LocalDataSourceFake()
-        val external = ExternalDataSourceFake(shouldThrow = true)
-        val repository = MovieRepositoryImpl(local, external)
+        val external = MoviesExternalDataSourceFake(shouldThrow = true)
+        val externalDetails = MovieExternalDataSourceFake()
+        val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
         val result = repository.getPopularMovies()
@@ -67,30 +72,32 @@ class MovieRepositoryImplTest {
     fun `deberia obtener detalles de pelicula desde remoto`() = runTest {
         // Arrange
         val local = LocalDataSourceFake()
-        val external = ExternalDataSourceFake()
-        val repository = MovieRepositoryImpl(local, external)
+        val external = MoviesExternalDataSourceFake()
+        val externalDetails = MovieExternalDataSourceFake()
+        val repository = MovieRepositoryImpl(local, external, externalDetails)
 
         // Act
-        val result = repository.getMovieDetails(5)
+        val remoteDetailsTitle = (externalDetails.getMovieByTitle("Detalle 5") as MovieItem).title
+        val result = repository.getMovieByTitle("Detalle 5") as MovieItem
 
         // Assert
-        assertEquals(5, result?.id)
-        assertEquals("Detalle 5", result?.title)
-        assertEquals(5, external.getMovieDetailsCalledWith)
+        assertEquals("Detalle 5", result.title)
+        assertEquals("Detalle 5", remoteDetailsTitle)
     }
 
     @Test
-    fun `deberia devolver null si ocurre algun error en getMovieDetails`() = runTest {
+    fun `deberia devolver EmptyMovie si ocurre algun error en getMovieDetails`() = runTest {
         // Arrange
         val repository = MovieRepositoryImpl(
             localData = LocalDataSourceFake(),
-            externalData = ExternalDataSourceFake(shouldThrow = true)
+            externalData = MoviesExternalDataSourceFake(),
+            externalDetails = MovieExternalDataSourceFake(shouldThrow = true)
         )
 
         // Act
-        val result = repository.getMovieDetails(7)
+        val result = repository.getMovieByTitle("Detalle 7")
 
         //Assert
-        assertEquals(result, null)
+        assertEquals(result, EmptyMovie)
     }
 }
